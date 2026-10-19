@@ -1,4 +1,5 @@
 # GlucoTwin
+<<<<<<< HEAD
 ### A Personalized Glucose Digital Twin — Research Prototype
 
 GlucoTwin is a Digital Twin Challenge prototype exploring how
@@ -245,3 +246,6 @@ separately. A project license does not grant rights to external data.
 GlucoTwin is an educational research prototype. Its synthetic
 results cannot establish clinical accuracy, safety, effectiveness,
 or suitability for real-world medical decision-making.
+=======
+Personalized  Glucose Digital Twin -- Research Prototype
+>>>>>>> caf80380365cbdd14b49e28cfd317f60848b3489
