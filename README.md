@@ -1,0 +1,247 @@
+# GlucoTwin
+### A Personalized Glucose Digital Twin — Research Prototype
+
+GlucoTwin is a Digital Twin Challenge prototype exploring how
+historical patient profiles and dynamic glucose and wearable-like
+time-series data can be combined to support short-horizon glucose
+forecasting and early awareness of potential glucose excursions.
+
+**Project status:** Working software prototype using synthetic data.
+
+> IMPORTANT: This project is for demonstration and research only.
+> It is not clinically validated and must not be used for diagnosis,
+> treatment, medication decisions, or real medical alerts.
+
+## 1. Problem Statement
+
+Glucose monitoring involves interpreting measurements over time
+alongside a person's health history and daily activity.
+
+GlucoTwin demonstrates a software workflow that combines a
+synthetic patient profile with simulated time-series observations,
+produces a glucose forecast, and evaluates a separate classifier
+for a predefined high-glucose event.
+
+This prototype does not establish that the approach is effective
+or safe for real patients.
+
+## 2. Current Features
+
+- Synthetic patient profile generation.
+- Synthetic glucose time-series generation.
+- Simulated heart-rate and activity signals.
+- A sleep-period proxy based on time of day.
+- A 30-minute glucose forecasting model.
+- Comparison against a persistence forecasting baseline.
+- A classifier for a synthetic high-glucose event within 60 minutes.
+- Evaluation metrics and downloadable CSV results.
+- Interactive Streamlit dashboard.
+
+## 3. Technology Stack
+
+- Python
+- pandas
+- NumPy
+- scikit-learn
+- Plotly
+- Streamlit
+- Git and GitHub
+
+## 4. Architecture
+
+```text
+Synthetic Patient Profiles
+          |
+          v
+Historical Profile CSV
+          |
+          +----------------------+
+                                 |
+Synthetic Glucose and Wearable   |
+Time-Series CSV                  |
+          |                      |
+          +----------+-----------+
+                     |
+                     v
+             Data Preparation
+                     |
+          +----------+-----------+
+          |                      |
+          v                      v
+ Glucose Forecast Model   Event Classification Model
+          |                      |
+          v                      v
+ Forecast Evaluation      Event Evaluation
+          |                      |
+          +-----------+----------+
+                      |
+                      v
+             Streamlit Dashboard
+```
+
+All inputs shown in this architecture are synthetic demonstration
+data. The current prototype does not ingest real EHR or wearable
+device feeds.
+
+## 5. Project Structure
+
+```text
+GlucoTwin/
+├── app.py
+├── train_model.py
+├── train_event_model.py
+├── requirements.txt
+├── README.md
+├── .gitignore
+└── data/
+    ├── generate_synthetic_data.py
+    ├── synthetic_ehr.csv
+    ├── synthetic_timeseries.csv
+    ├── forecast_evaluation.csv
+    └── event_evaluation.csv
+```
+
+The CSV files are generated locally by the scripts. Confirm which
+files should be committed before publishing the repository.
+
+## 6. Setup Instructions
+
+Requirements:
+- Python 3.12 or another compatible Python version.
+- Git.
+- VS Code or another Python editor.
+
+Create and activate a virtual environment on Windows PowerShell:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+Install dependencies:
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+Generate the synthetic datasets:
+
+```powershell
+python data/generate_synthetic_data.py
+```
+
+Train and evaluate the glucose forecasting model:
+
+```powershell
+python train_model.py
+```
+
+Train and evaluate the event classifier:
+
+```powershell
+python train_event_model.py
+```
+
+Launch the dashboard:
+
+```powershell
+python -m streamlit run app.py
+```
+
+Open the local address printed by Streamlit, usually:
+
+http://localhost:8501
+
+## 7. Models and Evaluation
+
+### Glucose forecasting
+
+The forecasting model predicts glucose 30 minutes ahead using
+past glucose observations, synthetic wearable-like signals, and
+synthetic patient profile fields.
+
+A Random Forest regressor is compared with a persistence baseline.
+The current experiment reports:
+
+- Mean Absolute Error (MAE)
+- Root Mean Squared Error (RMSE)
+
+The evaluation uses a chronological holdout within each synthetic
+patient's time series. This is an initial prototype evaluation,
+not independent clinical validation.
+
+### Event classification
+
+The demonstration event is defined as a synthetic glucose value
+of at least 180 mg/dL within the next 60 minutes.
+
+The classifier reports:
+
+- Precision
+- Recall
+- F1 score
+- Accuracy
+- Confusion matrix counts
+
+This event definition and its evaluation do not constitute a
+clinical warning system. The 0.5 classification threshold is a
+software demonstration setting, not a clinically selected threshold.
+
+## 8. Data and Privacy
+
+All records generated by the included data-generation script are
+synthetic. They are not real patient records.
+
+The heart-rate, step-count, and sleep-period values are simulated.
+The sleep-period proxy is not measured sleep duration.
+
+No real EHR integration or wearable-device integration is currently
+implemented.
+
+If real datasets are added in future work, their access conditions,
+licenses, permitted uses, and privacy requirements must be reviewed
+before use or redistribution.
+
+## 9. Limitations and Future Work
+
+Current limitations:
+- Synthetic data only.
+- No clinical validation.
+- No real-time device integration.
+- No calibrated forecast uncertainty.
+- No validated patient-level clinical risk model.
+- No demonstrated reduction in adverse events.
+
+Planned work:
+- Review appropriate open datasets and their licenses.
+- Strengthen temporal and patient-level validation.
+- Evaluate forecast performance across different patients.
+- Investigate false alarms and missed events.
+- Add explainability and uncertainty reporting.
+- Design a clinician-facing workflow for research evaluation.
+- Document reproducible experiments and known limitations.
+
+## 10. Reproducibility
+
+The data-generation script uses a fixed random seed for repeatable
+synthetic data generation. The model scripts also specify random
+seeds.
+
+Record the Python version, dependency versions, dataset-generation
+settings, evaluation split, and model configuration when preparing
+a final competition release.
+
+## 11. License
+
+A project license has not yet been selected. Before public release,
+choose an appropriate open-source license and add the complete
+license text in a file named LICENSE.
+
+Review the licenses of all included datasets and dependencies
+separately. A project license does not grant rights to external data.
+
+## 12. Disclaimer
+
+GlucoTwin is an educational research prototype. Its synthetic
+results cannot establish clinical accuracy, safety, effectiveness,
+or suitability for real-world medical decision-making.
