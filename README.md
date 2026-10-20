@@ -177,9 +177,11 @@ These are future directions, not claims of completed functionality.
 
 ## 11. Demonstration
 
-**Demo video:** To be added after recording and uploading the project demonstration.
+## Demo Video
 
-Once the demonstration is uploaded, add the verified YouTube Unlisted URL here.
+Watch the GlucoTwin Digital Twin Challenge 2026 demonstration:
+
+[▶ Watch GlucoTwin on YouTube](https://youtu.be/MOqSYF24CZE)
 
 ## 12. License
 
